@@ -6,12 +6,28 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Controllers\FormValidateController;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     use FormValidateController;
+
+    // 正常返回
+    const SUCCESS = 100;
+
+    // 魔术错误返回（不推荐）
+    const FAILED = 200;
+
+    // 数据库异常操作
+    const DB_NOT_FOUND = 301;
+    const DB_DATA_EXISTS = 302;
+    const DB_UPD_FAILED = 303;
+    const DB_SAVE_FAILED = 304;
+    const DB_DEL_FAILED = 305;
+
+    // 参数校验错误
+    const VALIDATE_FAILED = 401;
+
 
     /**
      *  成功的返回
@@ -21,7 +37,7 @@ class Controller extends BaseController
      */
     public function successResponse(array $data, $msg = '操作成功')
     {
-        return response()->json(['http_code' => 200, 'code' => 1000, 'msg' => $msg, 'data' => $data]);
+        return response()->json(['http_code' => 200, 'code' => self::SUCCESS, 'msg' => $msg, 'data' => $data]);
     }
 
     /**
