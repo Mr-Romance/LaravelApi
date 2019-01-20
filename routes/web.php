@@ -11,8 +11,14 @@
 |
 */
 
+// 首页
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('register','Auth\RegisterController@showRegister');
+Route::post('register','Auth\RegisterController@register')->name('register');
+
+

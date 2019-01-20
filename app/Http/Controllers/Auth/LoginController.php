@@ -40,5 +40,6 @@ class LoginController extends Controller
 
     public function login(Request $request){
         // 校验参数
+
     }
 }

@@ -42,13 +42,15 @@ class RegisterController extends Controller
     }
 
     /**
+     *  用户注册
+     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
     {
         // 参数校验
-        $this->registerUser($request);
+        $this->validate_register_user($request);
 
         $phone = $request->input('phone');
         $name = $request->input('name');
@@ -75,5 +77,15 @@ class RegisterController extends Controller
         }
 
         return $this->successResponse([], '注册成功');
+    }
+
+    /**
+     *  显示用户注册窗口
+     *
+     * @return mixed
+     */
+    public function showRegister()
+    {
+        return view('auth.register');
     }
 }
