@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('register','Auth\RegisterController@showRegister');
-Route::post('register','Auth\RegisterController@register')->name('register');
+Route::get('/register','Auth\RegisterController@showRegister');
+Route::post('/register','Auth\RegisterController@register')->name('register');
 
 

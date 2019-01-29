@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -58,10 +56,10 @@ class RegisterController extends Controller
         $email = $request->input('email');
 
         // 检查重复插入
-        if (User::wherePhone($phone)) {
+        if (User::wherePhone($phone)->exists()) {
             return $this->errorResponse(self::DB_DATA_EXISTS, '手机号已经存在');
         }
-        if (User::whereName($name)) {
+        if (User::whereName($name)->exists()) {
             return $this->errorResponse(self::DB_DATA_EXISTS, '用户名已经存在');
         }
 

@@ -5,7 +5,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
     @yield('styles')
 </head>
 
@@ -30,6 +30,6 @@
 
 <!--js代码位置，再最后-->
 <script type="application/javascript" src="/js/jQuery331.js"></script>
-<script type="application/javascript" src="/layui/layer/layer.js"></script>
+<script type="application/javascript" src="/layer/layer.js"></script>
 <script type="application/javascript" src="/js/dialog.js"></script>
 @yield('cur_jscode')

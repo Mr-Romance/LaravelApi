@@ -13,9 +13,20 @@ use Illuminate\Support\Facades\Validator;
  */
 trait FormValidateController
 {
+    /**
+     *  用户注册表单验证
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function validate_register_user(Request $request)
     {
-        $validator = Validator::make($request->all(), ['name' => 'required|string|min:6', 'password' => 'required|string|min6|max:30|confirmed', 'phone' => 'required|string|regex:/^1[34578][0-9]{9}$/', 'email' => 'required|email']);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:6',
+            'password' => 'required|string|min:6|max:30|confirmed',
+            'phone' => 'required|string|regex:/^1[34578][0-9]{9}$/',
+            'email' => 'required|email'
+        ]);
 
         if ($validator->fails()) {
             return $this->errorResponse(self::VALIDATE_FAILED, $validator->errors()->first());
@@ -30,9 +41,18 @@ trait FormValidateController
      */
     public function validate_edit_user(Request $request)
     {
-        $err_msg = ['user_id.required' => '用户id非空', 'name.required' => '用户名非空', 'email.required' => '邮箱地址非空'];
+        $err_msg = [
+            'user_id.required' => '用户id非空',
+            'name.required' => '用户名非空',
+            'email.required' => '邮箱地址非空'
+        ];
 
-        $validator = Validator::make($request->all(), ['user_id' => 'required|integer', 'name' => 'required|string', 'email' => 'required|string', 'img' => 'string'], $err_msg);
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer',
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'img' => 'string'
+        ], $err_msg);
 
         if ($validator->fails()) {
             return $this->errorResponse(self::VALIDATE_FAILED, $validator->errors()->first());
@@ -47,7 +67,10 @@ trait FormValidateController
      */
     public function validate_login(Request $request)
     {
-        $validator = Validator::make($request->all(), ['phone' => 'required|string|regex:/^1[34578][0-9]{9}$/', 'password' => 'required|string']);
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|string|regex:/^1[34578][0-9]{9}$/',
+            'password' => 'required|string'
+        ]);
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors()->first());
         }

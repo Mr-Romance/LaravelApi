@@ -13,7 +13,7 @@ class Controller extends BaseController
     use FormValidateController;
 
     // 正常返回
-    const SUCCESS = 100;
+    const SUCCESS_CODE = 100;
 
     // 魔术错误返回（不推荐）
     const FAILED = 200;
@@ -37,7 +37,7 @@ class Controller extends BaseController
      */
     public function successResponse(array $data, $msg = '操作成功')
     {
-        return response()->json(['http_code' => 200, 'code' => self::SUCCESS, 'msg' => $msg, 'data' => $data]);
+        return response()->json(['http_code' => 200, 'code' => self::SUCCESS_CODE, 'msg' => $msg, 'data' => $data]);
     }
 
     /**

@@ -2,9 +2,10 @@
 
 @section('content')
     <form class="layui-form" id="registerForm">
+        @csrf
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="text" name="name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
                        class="layui-input">
             </div>
@@ -45,16 +46,22 @@
             </div>
         </div>
     </form>
+
 @endsection
 
 @section('cur_jscode')
     <script>
         $('#register').click(function () {
-            var data = $('#registerForm').serializeArray();
+            var form_data = $('#registerForm').serializeArray();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             $.post(
                 'register',
-                data,
+                form_data,
                 function (data) {
                     if (100 != data.code) {
                         dialog.showError(data.msg);
@@ -63,6 +70,7 @@
                     }
                 }
             );
+            return false;
         });
     </script>
 @endsection

@@ -38,7 +38,8 @@ dialog = {
         layer.open({
             title: '操作提示',
             icon: 2,
-            content: msg
+            content: msg,
+            time: 3000
         });
     },
 
