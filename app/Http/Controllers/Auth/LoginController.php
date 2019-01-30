@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -78,6 +80,15 @@ class LoginController extends Controller
             return $this->errorResponse(self::DB_NOT_FOUND, '密码错误');
         }
 
-        return $this->successResponse([], '登录成功');
+        Auth::login($login_user);
+        return $this->successResponse(['user_id'=>$login_user->id], '登录成功');
+    }
+
+    /**
+     *  用户退出
+     */
+    public function logout(){
+        Auth::logout();
+        return view('auth.login');
     }
 }

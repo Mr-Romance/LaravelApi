@@ -39,7 +39,8 @@ class Controller extends BaseController
         return response()->json([
             'http_code' => 200,
             'code' => self::SUCCESS_CODE,
-            'msg' => $msg, 'data' => $data
+            'msg' => $msg,
+            'data' => $data
         ]);
     }
 

@@ -27,4 +27,13 @@ Route::get('/register', 'Auth\RegisterController@showRegister');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::get('/login', 'Auth\LoginController@showLogin');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+/**
+ *  用户相关路由
+ */
+Route::prefix('users')->group(function () {
+    Route::get('/add_table_column','UsersController@upd_users_table');
+    Route::get('/show/{id}','UsersController@show')->name('users.show');
+});
 
