@@ -14,26 +14,6 @@ use Illuminate\Support\Facades\Validator;
 trait FormValidateController
 {
     /**
-     *  用户注册表单验证
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function validate_register_user(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:6',
-            'password' => 'required|string|min:6|max:30|confirmed',
-            'phone' => 'required|string|regex:/^1[34578][0-9]{9}$/',
-            'email' => 'required|email'
-        ]);
-
-        if ($validator->fails()) {
-            return $this->errorResponse(self::VALIDATE_FAILED, $validator->errors()->first());
-        }
-    }
-
-    /**
      *  用户编辑信息
      *
      * @param Request $request

@@ -10,10 +10,11 @@
 ## PhpStorm 需要以下扩展
 
 - Laravel-plugin
-- Bootstrap 
 - [laravel-help](https://github.com/barryvdh/laravel-ide-helper) 创建本地文件，增强 IDE 自动代码提示
 
 ### 常用IDE增加命令
 - php artisan ide-helper:models "App\Models\User"
+
+
 
 

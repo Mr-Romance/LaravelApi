@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -38,8 +41,43 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request){
-        // 校验参数
+    /**
+     *  展示登录页面
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showLogin()
+    {
+        return view('auth.login');
+    }
 
+    /**
+     *  用户登录
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request)
+    {
+        // 校验参数
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|string|regex:/^1[34578][0-9]{9}$/',
+            'password' => 'required|string'
+        ]);
+        if ($validator->fails()) {
+            return $this->errorResponse(self::VALIDATE_FAILED, $validator->errors()->first());
+        }
+
+        // 手机号及密码校验
+        $login_user = User::wherePhone($request->input('phone'))->first();
+        if (empty($login_user)) {
+            return $this->errorResponse(self::DB_NOT_FOUND, '该用户不存在');
+        }
+
+        if (!Hash::check($request->input('password'), $login_user->password)) {
+            return $this->errorResponse(self::DB_NOT_FOUND, '密码错误');
+        }
+
+        return $this->successResponse([], '登录成功');
     }
 }

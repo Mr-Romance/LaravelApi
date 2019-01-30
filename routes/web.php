@@ -12,13 +12,19 @@
 */
 
 // 首页
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/register','Auth\RegisterController@showRegister');
-Route::post('/register','Auth\RegisterController@register')->name('register');
-
+/**
+ *  登录和注册
+ */
+Route::get('/register', 'Auth\RegisterController@showRegister');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
+Route::get('/login', 'Auth\LoginController@showLogin');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
 

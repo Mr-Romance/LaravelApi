@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -69,6 +70,9 @@ class RegisterController extends Controller
         if (User::wherePhone($phone)->exists()) {
             return $this->errorResponse(self::DB_DATA_EXISTS, '手机号已经存在');
         }
+        if (User::whereEmail($email)->exists()) {
+            return $this->errorResponse(self::DB_DATA_EXISTS, '该邮箱已经存在');
+        }
         if (User::whereName($name)->exists()) {
             return $this->errorResponse(self::DB_DATA_EXISTS, '用户名已经存在');
         }
@@ -76,7 +80,7 @@ class RegisterController extends Controller
         $user = new User();
         $user->name = $name;
         $user->phone = $phone;
-        $user->password = bcrypt($password);
+        $user->password = Hash::make($password);
         $user->email = $email;
 
         if (!$user->save()) {
