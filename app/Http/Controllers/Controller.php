@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    use FormValidateController;
 
     // 正常返回
     const SUCCESS_CODE = 100;
@@ -37,7 +36,11 @@ class Controller extends BaseController
      */
     public function successResponse(array $data, $msg = '操作成功')
     {
-        return response()->json(['http_code' => 200, 'code' => self::SUCCESS_CODE, 'msg' => $msg, 'data' => $data]);
+        return response()->json([
+            'http_code' => 200,
+            'code' => self::SUCCESS_CODE,
+            'msg' => $msg, 'data' => $data
+        ]);
     }
 
     /**
@@ -48,6 +51,10 @@ class Controller extends BaseController
      */
     public function errorResponse(int $err_code, $msg = '操作失败')
     {
-        return response()->json(['http_code' => 200, 'code' => $err_code, 'msg' => $msg]);
+        return response()->json([
+            'http_code' => 200,
+            'code' => $err_code,
+            'msg' => $msg
+        ]);
     }
 }

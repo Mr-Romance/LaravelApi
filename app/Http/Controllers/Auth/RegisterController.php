@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -48,7 +49,16 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         // 参数校验
-        $this->validate_register_user($request);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:3',
+            'password' => 'required|string|min:6|max:30|confirmed',
+            'phone' => 'required|string|regex:/^1[34578][0-9]{9}$/',
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse(self::VALIDATE_FAILED, $validator->errors()->first());
+        }
 
         $phone = $request->input('phone');
         $name = $request->input('name');
@@ -68,7 +78,6 @@ class RegisterController extends Controller
         $user->phone = $phone;
         $user->password = bcrypt($password);
         $user->email = $email;
-        $user->portrait = ''; // 没有设置 nullable 这种情况单独处理
 
         if (!$user->save()) {
             return $this->errorResponse(self::DB_SAVE_FAILED, '添加注册信息失败');

@@ -7,7 +7,13 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## 错误code码定义
-- 201-表单参数校验失败
-- 301-数据库内容重复
-- 302-数据库保存失败
+## PhpStorm 需要以下扩展
+
+- Laravel-plugin
+- Bootstrap 
+- [laravel-help](https://github.com/barryvdh/laravel-ide-helper) 创建本地文件，增强 IDE 自动代码提示
+
+### 常用IDE增加命令
+- php artisan ide-helper:models "App\Models\User"
+
+

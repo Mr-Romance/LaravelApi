@@ -2,7 +2,7 @@
 
 @section('content')
     <form class="layui-form" id="registerForm">
-        @csrf
+        {{ csrf_field() }}
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
