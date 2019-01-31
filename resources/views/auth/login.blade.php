@@ -36,7 +36,7 @@
                 post_data,
                 function (data) {
                     if (100 == data.code) {
-                        dialog.successTo(data.msg, '/users/show/'.data.data.user_id);
+                        dialog.successAuto(data.msg, '/users/show/' + data.data.user_id);
                     } else {
                         dialog.showError(data.msg);
                     }

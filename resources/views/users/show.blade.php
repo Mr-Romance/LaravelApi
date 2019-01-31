@@ -1,56 +1,41 @@
 @extends('layouts.app')
 @section('styles')
     <style>
-        .left {
-            float: left;
-        }
 
-        .left img {
-            height: 300px;
-            width: 300px;
+        .img {
+            height: 200px;
+            width: 200px;
+            background: #1E9FFF;
+            margin: 0 auto;
         }
+        .head_portrait
 
-        .head_protrait {
-            height: 300px;
-            width: 300px;
-        }
-
-        .right {
-            float: right;
-        }
     </style>
 @endSection()
 @section('content')
-    <div class="user_info">
-        <div class="left">
-            <div class="img">
-                <img class="head_protrait" src="{{$user->head_portrait}}">
-            </div>
-            <hr class="layui-bg-cyan">
-            <div class="user_info">
-                <div>
-                    <label class="layui-form-label">用户名</label>
-                    <label>{{$user->name}}</label>
-                </div>
-                <div>
-                    <label class="layui-form-label">手机号</label>
-                    <label>{{$user->phone}}</label>
-                </div>
-                <div>
-                    <label class="layui-form-label">邮箱</label>
-                    <label>{{$user->email}}</label>
-                </div>
-                <div>
-                    <label class="layui-form-label">注册时间</label>
-                    <label>{{$user->create_time}}</label>
-                </div>
-                <div>
-                    <a class="layui-nav-item" href="">修改个人信息</a>
+    <div class="layui-row">
+        <div class="layui-col-md3">
+            <div class="layui-form-item">
+                <div class="img">
+                <img class="head_portrait" src="{{$user->head_portrait}}">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <label class="layui-colla-title">{{$user->name}}</label>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <label class="layui-colla-title">{{$user->phone}}</label>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <label class="layui-colla-title">{{$user->email}}</label>
+            </div>
 
-            <div class="right">
-
+            <div class="layui-form-item">
+                <button class="layui-btn" id="editUser">修改</button>
             </div>
         </div>
+    </div>
 @endSection()
