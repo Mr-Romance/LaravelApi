@@ -26,6 +26,7 @@ class Controller extends BaseController
 
     // 参数校验错误
     const VALIDATE_FAILED = 401;
+    const FILE_STORAGE_FAILED = 402;
 
 
     /**

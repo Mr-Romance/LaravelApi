@@ -15,6 +15,9 @@
 ### 常用IDE增加命令
 - php artisan ide-helper:models "App\Models\User"
 
+### 开发注意点
+- 文件上传请阅读“文件存储”部分
+
 
 
 

@@ -34,7 +34,7 @@
             </div>
 
             <div class="layui-form-item">
-                <button class="layui-btn" id="editUser">修改</button>
+                <a href="/users/edit/{{$user->id}}" class="layui-btn" id="editUser">修改</a>
             </div>
         </div>
     </div>

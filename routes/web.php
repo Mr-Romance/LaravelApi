@@ -32,8 +32,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 /**
  *  用户相关路由
  */
-Route::prefix('users')->middleware(['auth'])->group(function () {
-    Route::get('/add_table_column','UsersController@upd_users_table');
-    Route::get('/show/{user}','UsersController@show')->name('users.show');
+Route::prefix('users')->middleware([ 'auth' ])->group(function () {
+    Route::get('/add_table_column', 'UsersController@upd_users_table');
+    Route::get('/show/{user}', 'UsersController@show');
+    Route::get('/edit/{user}', 'UsersController@showEditUser');
 });
 
