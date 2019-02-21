@@ -57,33 +57,33 @@
 @endSection()
 
 @section('cur_jscode')
-        <script>
-            $('#edit_user').click(function(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                var user_edit_form = document.querySelector('#user_edit_form');
-                var formData = new FormData(user_edit_form);
-                formData.append("head_portrait", $('#head_portrait').get(0).files[0]);
-
-                $.ajax({
-                    url: '/users/edit',
-                    processData: false,  // 这个必须为false，不转换的信息
-                    contentType: false, // 这个必须为false，不指定发送信息的编码类型
-                    data: formData,
-                    type: "POST",
-                    success: function (data) {
-                        if(100==data.code){
-                            dialog.successTo('/users/show/'.data.data.user_id);
-                        }else{
-                            dialog.showError(data.msg);
-                        }
-                    }
-                });
-                return false;
+    <script>
+        $('#edit_user').click(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-        </script>
-    @endsection()
+
+            var user_edit_form = document.querySelector('#user_edit_form');
+            var formData = new FormData(user_edit_form);
+            formData.append("head_portrait", $('#head_portrait').get(0).files[0]);
+
+            $.ajax({
+                url: '/users/edit',
+                processData: false,  // 这个必须为false，不转换的信息
+                contentType: false, // 这个必须为false，不指定发送信息的编码类型
+                data: formData,
+                type: "POST",
+                success: function (data) {
+                    if (100 == data.code) {
+                        dialog.successTo(data.msg,'/users/show/'+data.data.user_id);
+                    } else {
+                        dialog.showError(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+@endsection()
