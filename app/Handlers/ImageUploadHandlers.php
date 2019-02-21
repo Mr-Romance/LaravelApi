@@ -34,15 +34,16 @@ class ImageUploadHandlers
         }
 
         // 拼接完整的文件路径
-        $file_name = $base_path . $file_path . '/' . $file_name.$img_extension;
+        $full_file_path = $base_path . $file_path;
+        $file_name = $file_name . $img_extension;
 
         // 保存图片
-        $ret_path = $file->store($file_name);
-        if ($ret_path) {
+        $ret_path = $file->storeAs($full_file_path, $file_name);
+        if (!$ret_path) {
             throw new \Exception('保存文件失败');
         }
 
-        // 返回上传文件的路径
+        // 返回上传文件的路径，注意文件路径的映射关系
         return $ret_path;
     }
 }

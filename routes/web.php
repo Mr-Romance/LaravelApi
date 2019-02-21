@@ -15,7 +15,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -36,5 +36,6 @@ Route::prefix('users')->middleware([ 'auth' ])->group(function () {
     Route::get('/add_table_column', 'UsersController@upd_users_table');
     Route::get('/show/{user}', 'UsersController@show');
     Route::get('/edit/{user}', 'UsersController@showEditUser');
+    Route::post('/edit','UsersController@editUser');
 });
 

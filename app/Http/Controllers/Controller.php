@@ -14,8 +14,8 @@ class Controller extends BaseController
     // 正常返回
     const SUCCESS_CODE = 100;
 
-    // 魔术错误返回（不推荐）
-    const FAILED = 200;
+    const FAILED = 200; // 魔术错误返回（不推荐）
+    const NOTAUTHED = 201; // 用户认证不通过
 
     // 数据库异常操作
     const DB_NOT_FOUND = 301;
