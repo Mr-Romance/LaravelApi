@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ *  数据库相关辅助路由
+ *
+ *  修改表，增加初始化数据等
+ */
+Route::get('seed_category','DBHelperController@seed_category');
 
 /**
  *  登录和注册

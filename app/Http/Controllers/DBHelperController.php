@@ -17,10 +17,30 @@ class DBHelperController
      */
     public function seed_category() {
         $categories = [
-            ['name' => '分享', 'description' => '技能、知识、感悟'],
-            ['name' => '教程', 'description' => '开发技巧、拓展包使用等'],
-            ['name' => '问答', 'description' => '互相帮助'],
-            ['name' => '公告', 'description' => '站点公告']
+            [
+                'name' => '分享',
+                'description' => '技能、知识、感悟',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => '教程',
+                'description' => '开发技巧、拓展包使用等',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => '问答',
+                'description' => '互相帮助',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => '公告',
+                'description' => '站点公告',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
         ];
 
         if (DB::table('categories')->insert($categories)) {
