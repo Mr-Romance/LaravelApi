@@ -7,7 +7,9 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DBHelperController
 {
@@ -48,5 +50,15 @@ class DBHelperController
         } else {
             var_dump('插入失败');
         }
+    }
+
+    /**
+     *  增加users表中的列
+     */
+    public function alert_users_table()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('remember_token')->nullable();
+        });
     }
 }
