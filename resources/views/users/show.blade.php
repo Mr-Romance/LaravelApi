@@ -8,7 +8,10 @@
             background: #1E9FFF;
             margin: 0 auto;
         }
-        .head_portrait
+        .head_portrait{
+            width:200px;
+            height:200px;
+        }
 
     </style>
 @endSection()
