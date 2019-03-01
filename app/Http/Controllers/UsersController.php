@@ -96,13 +96,4 @@ class UsersController extends Controller
         return $this->successResponse(['user_id' => $user->id], '更新成功');
     }
 
-    /**
-     *  增加users表中的列
-     */
-    public function upd_users_table()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('remember_token')->nullable();
-        });
-    }
 }

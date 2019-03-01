@@ -25,6 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
  *  修改表，增加初始化数据等
  */
 Route::get('seed_category','DBHelperController@seed_category');
+Route::get('alert_user','DBHelperController@alert_users_table');
 
 /**
  *  登录和注册

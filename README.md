@@ -12,13 +12,13 @@
 - Laravel-plugin
 - [laravel-help](https://github.com/barryvdh/laravel-ide-helper) 创建本地文件，增强 IDE 自动代码提示
 
-### 常用IDE增加命令
+### 常用IDE增强命令
 - php artisan ide-helper:models "App\Models\User"
 
 ### 开发注意点
 - 文件上传请阅读“文件存储”部分
 - 如果你修改了类的命名空间，注意修改auth对user的引用同步修改
-
+- 使用数据填充，你需要先 composer dump-autoload，要注意数据表填充的顺序为categories--users--topics
 
 
 
