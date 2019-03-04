@@ -2,60 +2,48 @@
 
 @section('styles')
     <style>
-        .topics {
-            height: auto;
-            margin: 10px;
-            border: 1px #00FF00 solid;
-            font-size: 15px;
+        .head_portrait{
+            max-width:100px;
+            max-height:100px;
+            background-color: #3d4852;
         }
 
-        .img {
-            width: 100px;
-            height: 100px;
-            background-color: #f66D9b;
+        .topics-list{
+            border:1px #1e7e34 solid;
+        }
+
+        .sidebar{
+         border:1px #1e7e34 solid;
         }
     </style>
 @endSection()
 
 @section('content')
-    <div class="topics">
-        <div class="layui-row">
-            <div class="layui-col-md9">
-                <table class="layui-table">
-                    <colgroup>
-                        <col width="150">
-                        <col width="600">
-                        <col width="150">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>头像</th>
-                        <th>帖子内容</th>
-                        <th>其他操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($topics as $topic)
-                        <tr>
-                            <td><img class="img" src="{{$topic->user->head_portrait}}"></td>
-                            <td>{{$topic->body}}</td>
-                            <td>其他操作</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-                    <legend>总页数低于页码总数</legend>
-                </fieldset>
-                {{$topics->links()}}
+<div class="row">
+    <div class="col-lg-9 col-md-9 topics-list">
+        <div class="panel">
+            <div class="panel-heading">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">最后回复</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">最新发布</a>
+                    </li>
+                </ul>
+
+
             </div>
 
-            <div class="layui-col-md3">
-                你的内容 3/12
+            <div class="panel-body">
+                @include('topics._topics_list',['topics'=>$topics])
             </div>
-
         </div>
     </div>
 
+    <div class="col-lg-3 col-md-3 sidebar">
+
+    </div>
+</div>
 @endSection()
 
