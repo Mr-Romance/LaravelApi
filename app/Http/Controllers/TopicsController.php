@@ -13,7 +13,7 @@ class TopicsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function topicsList() {
-        $topics = Topic::getTopicsList(8);
+        $topics = Topic::getTopicsList(config('variable.topics_pageisze'));
         return view('topics.topicsList', compact('topics'));
     }
 

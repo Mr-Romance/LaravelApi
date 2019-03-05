@@ -36,6 +36,9 @@ Route::get('/login', 'Auth\LoginController@showLogin');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+/**
+ *  需要登录认证的路由
+ */
 Route::middleware([ 'auth' ])->group(function () {
     /**
      *  用户相关路由
@@ -54,5 +57,13 @@ Route::middleware([ 'auth' ])->group(function () {
         Route::get('/list','TopicsController@topicsList')->name('topics-list');
 
     });
+
+    /**
+     *  分类相关路由
+     */
+    Route::prefix('categories')->group(function(){
+        Route::get('/get_topics','CategoriesController@getTopics')->name('category-topics-list');
+    });
+
 });
 

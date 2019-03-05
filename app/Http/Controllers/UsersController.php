@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Handlers\ImageUploadHandlers;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,9 +19,12 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(User $user)
-    {
-        // 用到概念：路由模型绑定（隐式绑定）
+    public function show(User $user) {
+        /*
+         * 用到概念：路由模型绑定（隐式绑定）
+         *
+         *  如果在数据库中找不到对应的模型实例，将会自动生成 404 异常
+         */
         return view('users.show', compact('user'));
     }
 
@@ -30,8 +34,7 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showEditUser(User $user)
-    {
+    public function showEditUser(User $user) {
         return view('users.editUser', compact('user'));
     }
 
@@ -41,8 +44,7 @@ class UsersController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function editUser(Request $request)
-    {
+    public function editUser(Request $request) {
         /**
          * @var User $user
          */
@@ -54,7 +56,11 @@ class UsersController extends Controller
         $user = Auth::user();
 
         // 参数校验
-        $validator = Validator::make($request->all(), ['name' => 'required|string|min:3', 'phone' => 'required|regex:/^1[34578][0-9]{9}$/', 'email' => 'required|string|email',]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:3',
+            'phone' => 'required|regex:/^1[34578][0-9]{9}$/',
+            'email' => 'required|string|email',
+        ]);
         if ($validator->fails()) {
             return $this->errorResponse(self::VALIDATE_FAILED, $validator->errors()->first());
         }
