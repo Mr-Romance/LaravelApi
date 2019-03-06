@@ -36,7 +36,7 @@
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">最后回复</a>
+                            <a class="nav-link active" href="/topics/list&">回复最多</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">最新发布</a>

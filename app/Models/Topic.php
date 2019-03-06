@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\Topic
@@ -70,21 +71,47 @@ class Topic extends Model
      * @param array $query_data
      * @return mixed
      */
-    public static function getTopicsList($page_size, $query_data=[]) {
+    public static function getTopicsList($page_size, $query_data = []) {
         // 给默认页数赋值
         if (empty($page_size) || (int)$page_size <= 0) {
             $page_size = 15;
         }
         $topics = [];
         if (empty($query_data)) {
-            // 这里先使用简单分页
-            $topics = Topic::paginate($page_size);
+
         } else { // 拼接查询条件
+            $query = DB::table('topics');
+
             if (!empty($query_data['category_id'])) {
-                $topics = Topic::where('category_id', $query_data['category_id'])->paginate($page_size);
+                $query = $query->where('category_id', $query_data['category_id']);
             }
+
+            if (is_int($query_data['order_type'])) {
+                $query = $query->order($query, $query_data['order_type']);
+            }
+
+            // 这里先使用简单分页
+            $topics = $query->paginate($page_size);
         }
 
         return $topics;
     }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $sort_type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrder($query, $sort_type) {
+        if ('1' == $sort_type) { // 回复数量降序
+            return $query->orderBy('reply_count', 'desc');
+        } elseif ('2' == $sort_type) { // 回复数量升序
+            return $query->orderBy('reply_count', 'asc');
+        } elseif ('3' == $sort_type) { // 发布日期降序
+            return $query->orderBy('created_at', 'desc');
+        } elseif ('4' == $sort_type) { // 发布日期升序
+            return $query->orderBy('created_ad', 'asc');
+        }
+    }
+
 }
