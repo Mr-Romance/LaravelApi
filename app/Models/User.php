@@ -34,5 +34,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    //
+    /**
+     *  用户一对多话题
+     *  topic 外键：user_id
+     */
+    public function topics(){
+
+        return $this->hasMany('App\Models\Topic','user_id','id');
+    }
 }

@@ -8,37 +8,26 @@
             background: #1E9FFF;
             margin: 0 auto;
         }
-        .head_portrait{
-            width:200px;
-            height:200px;
-        }
 
     </style>
 @endSection()
 @section('content')
-    <div class="layui-row">
-        <div class="layui-col-md3">
-            <div class="layui-form-item">
-                <div class="img">
-                <img class="head_portrait" src="{{$user->head_portrait}}">
+    <div class="row">
+        <div class="col-md-3 col-lg-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{$user->head_portrait}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{$user->name}}</h5>
                 </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{$user->phone}}</li>
+                    <li class="list-group-item">{{$user->email}}</li>
+                </ul>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">用户名</label>
-                <label class="layui-colla-title">{{$user->name}}</label>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">手机号</label>
-                <label class="layui-colla-title">{{$user->phone}}</label>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">邮箱</label>
-                <label class="layui-colla-title">{{$user->email}}</label>
-            </div>
+        </div>
 
-            <div class="layui-form-item">
-                <a href="/users/edit/{{$user->id}}" class="layui-btn" id="editUser">修改</a>
-            </div>
+        <div class="col-md-9 col-lg-9">
+            @include('topics._topics_list',['topics'=>$topics])
         </div>
     </div>
 @endSection()

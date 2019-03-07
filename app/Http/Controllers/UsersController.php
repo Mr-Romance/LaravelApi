@@ -25,7 +25,11 @@ class UsersController extends Controller
          *
          *  如果在数据库中找不到对应的模型实例，将会自动生成 404 异常
          */
-        return view('users.show', compact('user'));
+
+        // 获取该用户下的所有话题
+        $topics = $user->topics()->paginate(config('variable.default_pagesizes'));
+
+        return view('users.show', compact('user', 'topics'));
     }
 
     /**

@@ -45,7 +45,7 @@ Route::middleware([ 'auth' ])->group(function () {
      */
     Route::prefix('users')->group(function(){
         Route::get('/add_table_column', 'UsersController@upd_users_table');
-        Route::get('/show/{user}', 'UsersController@show');
+        Route::get('/show/{user}', 'UsersController@show')->name('user-edit');
         Route::get('/edit/{user}', 'UsersController@showEditUser');
         Route::post('/edit','UsersController@editUser');
     });
@@ -54,7 +54,7 @@ Route::middleware([ 'auth' ])->group(function () {
      *  话题相关路由
      */
     Route::prefix('topics')->group(function(){
-        Route::get('/list','TopicsController@topicsList')->name('topics-list');
+        Route::get('/list/{order_type?}','TopicsController@topicsList')->name('topics-list');
 
     });
 

@@ -74,44 +74,37 @@ class Topic extends Model
     public static function getTopicsList($page_size, $query_data = []) {
         // 给默认页数赋值
         if (empty($page_size) || (int)$page_size <= 0) {
-            $page_size = 15;
+            $page_size = config('variable.default_pagesizes');
         }
+
         $topics = [];
-        if (empty($query_data)) {
+        if (empty($query_data)) { // 查询所有的话题信息
+            $topics = Topic::paginate($page_size);
 
         } else { // 拼接查询条件
-            $query = DB::table('topics');
-
+            $query = Topic::query();
             if (!empty($query_data['category_id'])) {
                 $query = $query->where('category_id', $query_data['category_id']);
             }
 
-            if (is_int($query_data['order_type'])) {
-                $query = $query->order($query, $query_data['order_type']);
+            if(!empty($query_data['order_type'])){
+                $sort_type = $query_data['order_type'];
+                if (!empty($sort_type)) {
+                    if (1 == $sort_type) { // 回复数量降序
+                        $query = $query->orderBy('reply_count', 'desc');
+                    } elseif (2 == $sort_type) { // 回复数量升序
+                        $query = $query->orderBy('reply_count', 'asc');
+                    } elseif (3 == $sort_type) { // 发布日期降序
+                        $query = $query->orderBy('created_at', 'desc');
+                    } elseif (4 == $sort_type) { // 发布日期升序
+                        $query = $query->orderBy('created_ad', 'asc');
+                    }
+                }
             }
 
             // 这里先使用简单分页
             $topics = $query->paginate($page_size);
         }
-
         return $topics;
     }
-
-    /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int $sort_type
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOrder($query, $sort_type) {
-        if ('1' == $sort_type) { // 回复数量降序
-            return $query->orderBy('reply_count', 'desc');
-        } elseif ('2' == $sort_type) { // 回复数量升序
-            return $query->orderBy('reply_count', 'asc');
-        } elseif ('3' == $sort_type) { // 发布日期降序
-            return $query->orderBy('created_at', 'desc');
-        } elseif ('4' == $sort_type) { // 发布日期升序
-            return $query->orderBy('created_ad', 'asc');
-        }
-    }
-
 }

@@ -39,6 +39,7 @@
                             {{Auth::user()->name}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{route('user-edit',['user'=>Auth::user()->id])}}">个人中心</a>
                             <a class="dropdown-item" href="#">编辑</a>
                             <a class="dropdown-item" href="#">退出</a>
                         </div>

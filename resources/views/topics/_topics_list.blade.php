@@ -14,7 +14,10 @@
                         {{$topic->category->name}}
                         </a>
                         <span>.</span>
-                        {{$topic->user->name}}
+                        <button type="button" class="btn btn-primary">{{$topic->user->name}}</button>
+                        <span>.</span>
+                        回复数量:
+                        {{empty($topic->reply_count)?0:$topic->reply_count}}
                         <span>.</span>
                         {{$topic->created_at}}
                     </p>
