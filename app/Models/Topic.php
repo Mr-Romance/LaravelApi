@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -46,6 +47,8 @@ class Topic extends Model
 {
     protected $table = 'topics';
 
+    protected $fillable = ['title', 'body', 'category_id', 'slug', 'excerpt'];
+
     /**
      *  关联关系：topics 外键:user_id
      *  用户一对多话题
@@ -87,7 +90,7 @@ class Topic extends Model
                 $query = $query->where('category_id', $query_data['category_id']);
             }
 
-            if(!empty($query_data['order_type'])){
+            if (!empty($query_data['order_type'])) {
                 $sort_type = $query_data['order_type'];
                 if (!empty($sort_type)) {
                     if (1 == $sort_type) { // 回复数量降序
@@ -106,5 +109,28 @@ class Topic extends Model
             $topics = $query->paginate($page_size);
         }
         return $topics;
+    }
+
+    /**
+     *  添加、更新话题
+     *
+     * @param $params
+     */
+    public static function addTopic($params) {
+        if (empty($params) || !is_array($params)) {
+            throw new Exception('参数不合法');
+        }
+
+        if (isset($params['topic_id']) && (int)$params['topic_id'] > 0) {
+            $model = Topic::find($params['topic_id']);
+        } else {
+            $model = new Topic();
+        }
+        $model->fill($params);
+        $model->user_id = Auth::id();
+        $model->excerpt = $params['body'];
+        if (!$model->save()) {
+            throw new Exception('保存失败');
+        }
     }
 }

@@ -55,6 +55,8 @@ Route::middleware([ 'auth' ])->group(function () {
      */
     Route::prefix('topics')->group(function(){
         Route::get('/list/{order_type?}','TopicsController@topicsList')->name('topics-list');
+        Route::get('/add/{topic}','TopicsController@showAdd')->name('topics-show-add');
+        Route::post('/add','TopicsController@add')->name('topics-add');
 
     });
 

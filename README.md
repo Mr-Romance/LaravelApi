@@ -19,11 +19,14 @@
 ### 常用IDE增强命令
 - php artisan ide-helper:models "App\Models\User"
 
+### 环境配置
+- 为方便使用postman，禁用了CSRF-TONKEN部分，具体代码位置在：app\Http\Kernel.php 文件的\App\Http\Middleware\VerifyCsrfToken::class, 这一行
+
 ### 开发注意点
 - 文件上传请阅读“文件存储”部分
 - 如果你修改了类的命名空间，注意修改auth对user的引用同步修改
 - 使用数据填充，你需要先 composer dump-autoload，要注意数据表填充的顺序为categories--users--topics
 - 如果你要使用模型关联，必须使用eloquent，不能使用 DB::table('table_name')
-
+- 自行研究‘预加载功能’
 
 
