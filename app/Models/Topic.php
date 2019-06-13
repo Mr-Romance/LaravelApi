@@ -115,6 +115,7 @@ class Topic extends Model
      *  添加、更新话题
      *
      * @param $params
+     * @return Topic
      */
     public static function addTopic($params) {
         if (empty($params) || !is_array($params)) {
@@ -132,5 +133,7 @@ class Topic extends Model
         if (!$model->save()) {
             throw new Exception('保存失败');
         }
+
+        return $model;
     }
 }

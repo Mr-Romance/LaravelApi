@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\DuiLieDemo;
 use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -55,7 +56,12 @@ class TopicsController extends Controller
         }
 
         try {
-            Topic::addTopic($params);
+            $topic_model=Topic::addTopic($params);
+
+            // 使用队列处理sulg字段
+            DuiLieDemo::setter($topic_model->id);
+            DuiLieDemo::dispatch();
+
         } catch (\Exception $exception) {
             return $this->errorResponse(self::DB_SAVE_FAILED, $exception->getMessage());
         }
