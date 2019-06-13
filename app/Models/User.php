@@ -42,4 +42,14 @@ class User extends Authenticatable
 
         return $this->hasMany('App\Models\Topic','user_id','id');
     }
+
+    /**
+     *  我评论的
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function myReplaies(){
+        return $this->hasMany('App\Models\Replay','from_user','id');
+    }
+
 }

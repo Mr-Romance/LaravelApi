@@ -67,6 +67,11 @@ class Topic extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
+    public function replies(){
+        return $this->hasMany('App\Models\Replay','topic_id','id');
+    }
+
+
     /**
      *  话题列表的分页数据
      *
@@ -136,4 +141,6 @@ class Topic extends Model
 
         return $model;
     }
+
+
 }
